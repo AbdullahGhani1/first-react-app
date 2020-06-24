@@ -5,7 +5,7 @@ name: React App Deploy to Serge
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -15,29 +15,26 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-          # Setup Node.js
-    - name: Install Node.js
-      uses: actions/setup-node@v2-beta
-      with:
-        node-version: 12 
-    # Yarn
-    - name: GitHub Action for yarn
-      uses: borales/actions-yarn@v2.3.0
-      with:
-        #yarn Comands
-        cmd: install
-    # Build
-    - name: Creating Build
-      run: yarn build
-        
-    # Setup surge
-    - name: Installing surge
-      run: npm install --global surge
-    # Deploy surge
-    - name: Deploying on surge
-      run: surge ./build dev-react.surge.sh/ --token ${{secrets.SECURE_TOKEN}}
-    
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Setup Node.js
+      - name: Install Node.js
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12
+      # Yarn
+      - name: GitHub Action for yarn
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          #yarn Comands
+          cmd: install
+      # Build
+      - name: Creating Build
+        run: yarn build
 
-
+      # Setup surge
+      - name: Installing surge
+        run: npm install --global surge
+      # Deploy surge
+      - name: Deploying on surge
+        run: surge ./build boot-react.surge.sh/ --token ${{secrets.SECURE_TOKEN}}
